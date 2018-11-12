@@ -1,0 +1,162 @@
+Leigh Schumann and Bridget Menkis -- 9/28/16
+
+RESULTS
+(TRAINING AND TESTING FROM THE SAME SOURCE)
+
+Emma
+	The training data has 186939 tokens.
+	The test data has 6041 tokens.
+	
+	Unigram model:
+	The training data has 7723 unigram types.
+	Perplexity: 454.0051480253475
+	
+	Bigram model:
+	The training data has 63013 bigram types.
+	Perplexity: 104.81135589008555
+	
+	Trigram model:
+	The training data has 134671 trigram types.
+	Perplexity: 76.40568032707671
+	
+	Quadrigram model:
+	The training data has 171571 quadrigram types.
+	Perplexity: 71.16748997512646
+
+Moby Dick	
+	The training data has 241029 tokens.
+	The test data has 14366 tokens.
+	
+	Unigram model:
+	The training data has 20119 unigram types.
+	Perplexity: 845.3936337989537
+	
+	Bigram model:
+	The training data has 111675 bigram types.
+	Perplexity: 267.09515996104716
+	
+	Trigram model:
+	The training data has 198542 trigram types.
+	Perplexity: 213.7836846649205
+	
+	Quadrigram model:
+	The training data has 231023 quadrigram types.
+	Perplexity: 206.40688047743595
+	
+Treebank
+	The training data has 89992 tokens.
+	The test data has 6127 tokens.
+	
+	Unigram model:
+	The training data has 11296 unigram types.
+	Perplexity: 1641.0951611176652
+	
+	Bigram model:
+	The training data has 51716 bigram types.
+	Perplexity: 462.5273019140786
+	
+	Trigram model:
+	The training data has 77757 trigram types.
+	Perplexity: 380.1821596552057
+	
+	Quadrigram model:
+	The training data has 86020 quadrigram types.
+	Perplexity: 371.5896859403324
+
+
+1. As the degree of the model increases, the number of token types increases
+while the perplexity decreases. With each additional degree, the perplexity
+seems to decrease by a smaller margin.
+Yes, this what we expected. This is because we expect that "knowing" a greater
+number of previous tokens aids greatly in prediction, at least to a certain point.
+We do expect that if we model out n-grams with a larger and larger n, 
+we would get fewer and fewer matches for each type, aproaching zero. 
+However, using methods like backoff, the perplexity would continue 
+to go down until it levels off.
+
+2. "Emma" has the least perplexity, "Treebank" has the most. When the degree 
+of the model increases for each data set, however, the perplexity decreases
+roughly proportionally.
+It makes sense that our models are less perplexed by "Emma" because,
+like, who likes Jane Austen? No, but actually, many fewer types
+than the other sets, particularly "Moby Dick." It would make sense that more
+types would be more perplexing. However, "Treebank" yields a greater perplexity
+while also having fewer types than found in "Moby Dick." This also makes sense
+because "Moby Dick" was written by one person (as far as I know), while
+the Wall Street Journal has multiple contributors (as far as I know).
+
+3.
+TRAINING ON "MOBY DICK", TESTING ON "EMMA"
+	What is the name of the training file?
+	moby.train
+	
+	Thanks!! What is the name of the test file?
+	emma.test
+	Good choices!
+	
+	The training data has 241029 tokens.
+	The test data has 6041 tokens.
+	
+	Unigram model:
+	The training data has 20119 unigram types.
+	Perplexity: 952.0886272635383
+	
+	Bigram model:
+	The training data has 111675 bigram types.
+	Perplexity: 357.42751921609704
+	
+	Trigram model:
+	The training data has 198542 trigram types.
+	Perplexity: 301.5004817063344
+	
+	Quadrigram model:
+	The training data has 231023 quadrigram types.
+	Perplexity: 294.7671516037184
+
+TRAINING ON "EMMA", TESTING ON "MOBY DICK"
+	What is the name of the training file?
+	emma.train
+	
+	Thanks!! What is the name of the test file?
+	moby.test
+	Good choices!
+	
+	The training data has 186939 tokens.
+	The test data has 14366 tokens.
+	
+	Unigram model:
+	The training data has 7723 unigram types.
+	Perplexity: 2744.754968728603
+	
+	Bigram model:
+	The training data has 63013 bigram types.
+	Perplexity: 1460.1767057820489
+	
+	Trigram model:
+	The training data has 134671 trigram types.
+	Perplexity: 1347.4899376510539
+	
+	Quadrigram model:
+	The training data has 171571 quadrigram types.
+	Perplexity: 1334.9803714996162
+	
+It seems that the perplexity is much greater than what we would expect 
+if we trained and tested from a single source. This is the case because
+individual authors use different words and have different styles, which
+affect what sort of n-grams the model expects.
+
+4. We believe so, but it wouldn't be perfect. When we trained and tested 
+on data from the same author, we see that we can expect lower perplexities. 
+Additionally, when training and testing on data from the same author, as 
+the degree of the model increased, the perplexity decreased at a similar rate. 
+When we trained and tested on data from different authors, the rate was 
+significantly different. Therefore, the combination of high perplexity
+and slow decreases in perplexity could be used as metrics to at least
+cast doubt on whether two works were written by the same author.
+
+A hiccup emerges in our throught as we consider the Treebank. The Treebank
+was written by several different people, but the perplexities, while high,
+decreased at a rate consistent with the rates for "Emma" and "Moby Dick."
+This can be accounted for, however, given that the Treebank data was taken from
+the same newspaper, which constitutes a consistent genre as well as presumably
+having its own style guide.
